@@ -29,8 +29,6 @@ I'm accepting pull requests that improve speed and legibility of the code.
 
 * **Yan Orestes** - *Initial work* - [yanorestes](https://github.com/yanorestes)
 
-See also the list of [contributors](https://github.com/your/project/contributors) who participated in this project.
-
 ## License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
