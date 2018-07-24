@@ -49,7 +49,13 @@ simple_subs = {
 				'While ':'while '
 			}
 
-
+def get_comments(line):
+	if '(' in line:
+		line, comment = line.split('(')
+		comment = ' #' + comment.strip(')\n ')
+	else:
+		comment = ''
+	return line, comment
 
 def create_function(line):
 	global ident
@@ -117,6 +123,9 @@ def convert_code(rockstar_code, py_rockstar):
 			ident = ident - 1 if ident > 0 else 0
 		else:
 			line_ident = '    ' * ident
+
+			line, comments = get_comments(line)
+
 			for key in simple_subs:
 				line = line.strip()
 				line += ' '
@@ -149,7 +158,7 @@ def convert_code(rockstar_code, py_rockstar):
 			line_named = find_named(py_line)
 			most_recently_named = line_named if line_named else most_recently_named
 
-			py_rockstar.write(line_ident + py_line + '\n')
+			py_rockstar.write(line_ident + py_line + comments + '\n')
 	
 
 if __name__ == '__main__':
