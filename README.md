@@ -36,5 +36,5 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 ## Acknowledgments
 
 * Hat tip to [dylanbeattie](https://github.com/dylanbeattie/) for creating Rockstar
-* The FizzBuzz example work well. If valid code doesn't work, create an issue so I can get a look.
+* The FizzBuzz example works well. If valid code doesn't work, create an issue so I can get a look.
 * I'll work on the readibility and organization of the code, would love suggestions on how/where to do that.
