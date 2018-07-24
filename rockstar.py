@@ -139,6 +139,8 @@ def convert_code(rockstar_code, py_rockstar):
 			py_line = create_function(py_line)
 			py_line = create_while(py_line)
 			py_line = create_if(py_line)
+			line_ident = '    ' * (ident - 1) if py_line == 'Else' else line_ident
+			py_line = 'else:' if py_line == 'Else' else py_line
 
 			py_line = re.sub(r'Put (.*) into ([A-Za-z]+(?: [A-Za-z]+)*)', r'\g<2> = \g<1>', py_line)
 			py_line = re.sub(r'Build ([A-Za-z]+(?: [A-Za-z]+)*) up', r'\g<1> += 1', py_line)
