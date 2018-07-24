@@ -1,5 +1,5 @@
 import argparse
-import rockstar
+from . import rockstar
 
 parser = argparse.ArgumentParser(description="Python transpiler for the esoteric language Rockstar")
 parser.add_argument('input', action='store', help='Input file (.rock|.rockstar|.lyrics)')
