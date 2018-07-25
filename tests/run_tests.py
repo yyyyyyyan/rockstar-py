@@ -1,11 +1,8 @@
 import os
-from rockstarpy.rockstar import convert_code
+from io import StringIO
 import difflib
-from pprint import pprint
-try:
-    from StringIO import StringIO # python 2
-except:
-    from io import StringIO  # python 3
+
+from rockstarpy.rockstar import convert_code
 
 
 def check_files_identical(expected, actual):
@@ -23,14 +20,14 @@ def check_files_identical(expected, actual):
 
 def main():
     files = os.listdir('.')
-    rock_files = filter(lambda f: '.rock' == f[-5:], files)
+    rock_files = filter(lambda f: f.split(".")[-1] in ['rock','rockstar','lyrics'] , files)
     py_files = set(filter(lambda f: '.py' == f[-3:], files))
     for rock_file in rock_files:
         file_name = rock_file[:-5]
         py_file = file_name + ".py"
         assert py_file in py_files, "Did not create a corrosponding expected output for " + file_name + ".rock"
     
-        converted_code = StringIO() # open(file_name +".actual.py", 'w')
+        converted_code = StringIO() 
         rockstar_code = ""
         with open(rock_file, 'r') as rockstar_file:
             rockstar_code = rockstar_file.readlines()
