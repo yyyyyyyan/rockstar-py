@@ -5,7 +5,7 @@ with open('README.rst') as file:
 
 setup(
 	name='rockstar-py',
-	version='1.2.0',
+	version='1.2.1',
 	author='Yan Orestes',
 	author_email='yan.orestes@alura.com.br',
 	packages=['rockstarpy'],
