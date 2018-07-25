@@ -4,7 +4,7 @@ from . import rockstar
 parser = argparse.ArgumentParser(description="Python transpiler for the esoteric language Rockstar")
 parser.add_argument('input', action='store', help='Input file (.rock|.rockstar|.lyrics)')
 parser.add_argument('--output', action='store', help='Output file (.py)', default='output.py')
-parser.add_argument('-v', action='version', help='Version', version='1.1.0')
+parser.add_argument('-v', action='version', help='Version', version='1.1.2')
 
 def main():
     args = parser.parse_args()
