@@ -172,6 +172,8 @@ if __name__ == '__main__':
             print('File not found.')
         else:
             with open(argv[2], 'w') as py_rockstar:
-                rockstar.convert_code(rockstar_code, py_rockstar)
+                #rockstar.convert_code(rockstar_code, py_rockstar)
+                convert_code(rockstar_code, py_rockstar)
+
     else:
         print('Usage: python rockstar.py input.{rock|rockstar|lyrics} output.py')
