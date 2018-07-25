@@ -37,7 +37,7 @@ You can also run the transpiler directly by ``rockstar.py``:
 
 ::
 
-   python3 rockstar.py [--output OUTPUT.py] input.{rock|rockstar|lyrics}
+   python3 -W ignore -m rockstarpy.rockstar [--output OUTPUT.py] input.{rock|rockstar|lyrics}
 
 Contributing
 ------------
