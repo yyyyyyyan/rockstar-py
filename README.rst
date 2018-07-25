@@ -12,7 +12,7 @@ your local machine for development and testing purposes.
 Installing
 ~~~~~~~~~~
 
-The fastest way is installing using pip:
+The easiest way is installing using pip:
 
 ::
 
@@ -27,11 +27,17 @@ You can also clone this project using git:
 Usage
 -----
 
-Running the transpiler is plain and simple:
+If you installed the package using pip, you can simply run rockstar-py in the command line:
 
 ::
 
-   python rockstar.py input.{rock|rockstar} output.py
+   rockstar-py [--output OUTPUT.py] input.{rock|rockstar|lyrics}
+
+You can also run the transpiler directly by ``rockstar.py``:
+
+::
+
+   rockstar-py [--output OUTPUT.py] input.{rock|rockstar|lyrics}
 
 Contributing
 ------------
@@ -43,6 +49,11 @@ Authors
 -------
 
 -  **Yan Orestes** - *Initial work* - `yanorestes`_
+
+Contributors
+------------
+
+Huge thanks to everyone who is contribuing with this project. Check them out at `Contributors`_! 
 
 License
 -------
@@ -61,5 +72,6 @@ Acknowledgments
 
 .. _Rockstar: https://github.com/dylanbeattie/rockstar
 .. _yanorestes: https://github.com/yanorestes
+.. _Contributors: https://github.com/yanorestes/rockstar-py/graphs/contributors
 .. _LICENSE: https://github.com/yanorestes/rockstar-py/blob/master/LICENSE.txt
 .. _dylanbeattie: https://github.com/dylanbeattie/

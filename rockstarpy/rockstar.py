@@ -1,5 +1,5 @@
-import re
-from sys import argv
+import argparse
+from . import command_line
 
 simple_subs = {
                 '(':'#',
@@ -94,7 +94,6 @@ def find_poetic_number_literal(line):
             line += str(len(alpha_word) % 10) + period
     return line
 
-
 def find_proper_variables(line):
     match_list = re.findall(r'[A-Z][a-zA-Z]*(?: [A-Z][a-zA-Z]*)+', line)
     if match_list:
@@ -161,17 +160,6 @@ def convert_code(rockstar_code, py_rockstar):
             most_recently_named = line_named if line_named else most_recently_named
 
             py_rockstar.write(line_ident + py_line + comments + '\n')
-    
 
 if __name__ == '__main__':
-    if len(argv) == 3:
-        try:
-            with open(argv[1], 'r') as rockstar_file:
-                rockstar_code = rockstar_file.readlines()
-        except FileNotFoundError:
-            print('File not found.')
-        else:
-            with open(argv[2], 'w') as py_rockstar:
-                rockstar.convert_code(rockstar_code, py_rockstar)
-    else:
-        print('Usage: python rockstar.py input.{rock|rockstar|lyrics} output.py')
+    command_line.main()
