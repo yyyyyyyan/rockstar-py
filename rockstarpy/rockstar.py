@@ -4,6 +4,7 @@ from . import command_line
 simple_subs = {
                 '(':'#',
                 ')':'',
+                '\'s ':' is ',
                 'Give back':'return',
                 'Take it to the top':'continue',
                 'Break it down':'break',
@@ -15,6 +16,8 @@ simple_subs = {
                 ' nothing ':' False ',
                 ' nowhere ':' False ',
                 ' nobody ':' False ',
+                ' empty ':' False ',
+                ' gone ':' False ',
                 ' true ':' True ',
                 ' right ':' True ',
                 ' yes ':' True ',
