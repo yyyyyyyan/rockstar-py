@@ -21,12 +21,12 @@ def check_files_identical(expected, actual):
 def main():
     files = os.listdir('.')
     rock_files = filter(lambda f: f.split(".")[-1] in ['rock','rockstar','lyrics'] , files)
-    py_files = set(filter(lambda f: '.py' == f[-3:], files))
+    py_files = set(filter(lambda f: f.endswith('.py'), files))
     for rock_file in rock_files:
         print("testing", rock_file)
-        file_name = rock_file[:-5]
+        file_name = os.path.splitext(rock_file)[0]  # take off extension
         py_file = file_name + ".py"
-        assert py_file in py_files, "Did not create a corrosponding expected output for " + file_name + ".rock"
+        assert py_file in py_files, "Did not create a corrosponding expected output for " + rock_file
     
         converted_code = StringIO() 
         rockstar_code = ""
