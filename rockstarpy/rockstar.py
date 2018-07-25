@@ -155,7 +155,7 @@ def convert_code(rockstar_code, py_rockstar):
             py_line = find_proper_variables(py_line)
             py_line = find_common_variables(py_line)
 
-            py_line = re.sub(r'([A-Za-z]+(?: [A-Za-z]+)*) taking ([A-Za-z_]+(?:, [A-Za-z_]+)*)', r'\g<1>(\g<2>)', py_line)
+            py_line = re.sub(r'([A-Za-z]+(?: [A-Za-z]+)*) taking ([A-Za-z0-9_]+(?:, [A-Za-z_0-9]+)*)', r'\g<1>(\g<2>)', py_line)
             
             line_named = find_named(py_line)
             most_recently_named = line_named if line_named else most_recently_named
