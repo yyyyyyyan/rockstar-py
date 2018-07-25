@@ -162,4 +162,16 @@ def convert_code(rockstar_code, py_rockstar):
             py_rockstar.write(line_ident + py_line + comments + '\n')
 
 if __name__ == '__main__':
-    command_line.main()
+    if len(argv) == 3:
+        try:
+            with open(argv[1], 'r') as rockstar_file:
+                rockstar_code = rockstar_file.readlines()
+        except FileNotFoundError:
+            print('File not found.')
+        else:
+            with open(argv[2], 'w') as py_rockstar:
+                #rockstar.convert_code(rockstar_code, py_rockstar)
+                convert_code(rockstar_code, py_rockstar)
+
+    else:
+        print('Usage: python rockstar.py input.{rock|rockstar|lyrics} output.py')
