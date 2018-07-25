@@ -29,7 +29,6 @@ simple_subs = {
                 ' times ':' * ',
                 ' of ':' * ',
                 ' over ':' / ',
-                ' by ':' / ',
                 ' is higher than ':' > ',
                 ' is greater than ':' > ',
                 ' is bigger than ':' > ',
