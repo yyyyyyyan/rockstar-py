@@ -1,4 +1,4 @@
-import argparse
+import re
 from . import command_line
 
 simple_subs = {
