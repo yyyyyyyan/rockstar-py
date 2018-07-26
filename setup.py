@@ -26,6 +26,6 @@ setup(
 		'Topic :: Software Development :: Compilers'
 	],
 	entry_points={
-		'console_scripts':['rockstar-py=rockstarpy.command_line:main']
+		'console_scripts':['rockstar-py=rockstarpy.command_line:command_line']
 	}
 )
