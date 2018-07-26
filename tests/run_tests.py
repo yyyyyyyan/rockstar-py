@@ -14,8 +14,6 @@ def check_files_identical(expected, actual):
     )
     diff = list(diff)
     if len(diff):
-        for d in diff:
-            print(''.join(diff))
         assert False, "There are differences"
 
 def main():
@@ -33,7 +31,7 @@ def main():
         with open(rock_file, 'r') as rockstar_file:
             rockstar_code = rockstar_file.readlines()
         
-        convert_code(rockstar_code, converted_code )
+        convert_code(rockstar_code, converted_code)
         with open(file_name +".py", 'r') as expected:
             expected_code = expected.read()
             actual_code = converted_code.getvalue()
