@@ -5,7 +5,6 @@ from .command_line import command_line
 simple_subs = {
                 '(':'#',
                 ')':'',
-                '\'s ':' is ',
                 'Give back':'return',
                 'Take it to the top':'continue',
                 'Break it down':'break',
@@ -88,7 +87,7 @@ def create_if(line):
 
 def find_poetic_number_literal(line):
     poetic_type_literals_keywords = ['True', 'False']
-    match = re.match(r'([A-Za-z]+(?: [A-Za-z]+)*) (?:is|was|were) (.+)', line)
+    match = re.match(r'([A-Za-z]+(?: [A-Za-z]+)*)(?: is|\'s| was| were) (.+)', line)
     if match and match.group(2) not in poetic_type_literals_keywords:
         line = '{} = '.format(match.group(1))
         for word_number in match.group(2).split():
