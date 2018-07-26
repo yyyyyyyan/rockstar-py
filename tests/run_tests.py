@@ -2,7 +2,7 @@ import os
 from io import StringIO
 import difflib
 
-from rockstarpy.rockstar import convert_code
+from rockstarpy import convert_code
 
 
 def check_files_identical(expected, actual):
