@@ -53,7 +53,7 @@ Authors
 Contributors
 ------------
 
-Huge thanks to everyone who is contribuing with this project. Check them out at `Contributors`_! 
+Huge thanks to everyone who is contribuing to this project. Check them out at `Contributors`_! 
 
 License
 -------

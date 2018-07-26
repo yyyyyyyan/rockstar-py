@@ -115,6 +115,17 @@ def find_named(line):
     if match:
         return match.group(1)
 
+def get_strings(line):
+    says_match = re.match(r'([A-Za-z]+(?: [A-Za-z]+)*) says (.*)', line)
+    if says_match:
+        line = says_match.group(1) + ' = "{}"'
+        return line, says_match.group(2)
+    quotes_match = re.match(r'([^\"]* )(\".*\"(?:, ?\".*\")*)([^\"]*)', line)
+    if quotes_match:
+        line = quotes_match.group(1) + '{}' + quotes_match.group(3)
+        return line, quotes_match.group(2)
+    return line, None
+
 def convert_code(rockstar_code, py_rockstar):
     global ident
     ident = 0
@@ -126,6 +137,7 @@ def convert_code(rockstar_code, py_rockstar):
             line_ident = '    ' * ident
 
             line, comments = get_comments(line)
+            line, line_strings = get_strings(line)
 
             for key in simple_subs:
                 line = line.strip()
@@ -150,8 +162,7 @@ def convert_code(rockstar_code, py_rockstar):
             py_line = re.sub(r'(?:Say|Shout|Whisper|Scream) (.*)', r'print(\g<1>)', py_line)
 
             py_line = find_poetic_number_literal(py_line)
-            py_line = py_line.replace(' is ', ' = ')
-            py_line = re.sub(r'([A-Za-z]+(?: [A-Za-z]+)*) says (.*)', r'\g<1> = "\g<2>"', py_line)
+            py_line = py_line.replace(' is ', ' = ', 1)
 
             py_line = find_proper_variables(py_line)
             py_line = find_common_variables(py_line)
@@ -160,6 +171,8 @@ def convert_code(rockstar_code, py_rockstar):
             
             line_named = find_named(py_line)
             most_recently_named = line_named if line_named else most_recently_named
+
+            py_line = py_line.format(line_strings) if line_strings else py_line
 
             py_rockstar.write(line_ident + py_line + comments + '\n')
 
