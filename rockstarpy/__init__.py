@@ -145,7 +145,8 @@ def convert_code(rockstar_code, py_rockstar):
                 line = line.replace(key, simple_subs[key])
             py_line = line.strip('\n ,.;')
 
-            most_recently_named_keywords = [' it ', ' he ', ' she ', ' him ', ' her ', ' them ', ' they ']
+            most_recently_named_keywords = [' it ', ' he ', ' she ', ' him ', ' her ', ' them ', ' they ',
+                                            ' ze ', ' hir ', ' zie ', ' zir ', ' xe ', ' xem ', ' ve ', ' ver ']
             for keyword in most_recently_named_keywords:
                 py_line = py_line.replace(keyword, ' {} '.format(most_recently_named))
 

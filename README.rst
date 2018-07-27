@@ -31,13 +31,13 @@ If you installed the package using pip, you can simply run rockstar-py in the co
 
 ::
 
-   rockstar-py [--output OUTPUT.py] input.{rock|rockstar|lyrics}
+   rockstar-py [--output OUTPUT.py] input.rock
 
 You can also run the transpiler directly by ``rockstar.py``:
 
 ::
 
-   python3 -W ignore -m rockstarpy [--output OUTPUT.py] input.{rock|rockstar|lyrics}
+   python3 -W ignore -m rockstarpy [--output OUTPUT.py] input.rock
 
 Contributing
 ------------

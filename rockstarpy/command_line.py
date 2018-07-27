@@ -2,9 +2,9 @@ import argparse
 import rockstarpy as rockstar
 
 parser = argparse.ArgumentParser(description="Python transpiler for the esoteric language Rockstar")
-parser.add_argument('input', action='store', help='Input file (.rock|.rockstar|.lyrics)')
+parser.add_argument('input', action='store', help='Input file (.rock)')
 parser.add_argument('--output', action='store', help='Output file (.py)', default='output.py')
-parser.add_argument('-v', action='version', help='Version', version='1.3.2')
+parser.add_argument('-v', action='version', help='Version', version='1.3.3')
 
 def command_line():
     args = parser.parse_args()
