@@ -12,7 +12,7 @@ setup(
 	description='Python transpiler for the esoteric language Rockstar',
 	long_description=long_description,
 	url='https://github.com/yanorestes/rockstar-py',
-	download_url='https://github.com/yanorestes/rockstar-py/archive/1.3.0.zip',
+	download_url='https://github.com/yanorestes/rockstar-py/archive/1.3.3.zip',
 	license='MIT',
 	keywords='esoteric rockstar',
 	classifiers=[
