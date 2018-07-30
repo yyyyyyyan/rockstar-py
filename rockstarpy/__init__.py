@@ -61,7 +61,8 @@ def get_comments(line):
 
 def create_function(line):
     global ident
-    match = re.match(r'([A-Za-z]+(?: [A-Za-z]+)*) takes ([A-Za-z ]+)', line)
+    global regex_variables
+    match = re.match(r'\b({0}) takes ({0}(?: and {0})*)\b'.format(regex_variables), line)
     if match:
         ident += 1
         line = 'def {}({}):'.format(match.group(1), match.group(2).replace(' and', ','))
@@ -86,8 +87,9 @@ def create_if(line):
     return line
 
 def find_poetic_number_literal(line):
+    global regex_variables
     poetic_type_literals_keywords = ['True', 'False']
-    match = re.match(r'([A-Za-z]+(?: [A-Za-z]+)*)(?: is|\'s| was| were) (.+)', line)
+    match = re.match(r'\b({})(?: is|\'s| was| were) (.+)'.format(regex_variables), line)
     if match and match.group(2) not in poetic_type_literals_keywords:
         line = '{} = '.format(match.group(1))
         for word_number in match.group(2).split():
@@ -97,14 +99,14 @@ def find_poetic_number_literal(line):
     return line
 
 def find_proper_variables(line):
-    match_list = re.findall(r'[A-Z][a-zA-Z]*(?: [A-Z][a-zA-Z]*)+', line)
+    match_list = re.findall(r'\b[A-Z][A-Za-z]+(?: [A-Z][A-Za-z]+)*\b', line)
     if match_list:
         for match in match_list:
-            line = line.replace(match, match.replace(' ', '_').lower())
+            line = line.replace(match, match.replace(' ', '_'))
     return line
 
 def find_common_variables(line):
-    match_list = re.findall(r'((?:[Mm]y|[Aa]n?|[Tt]he|[Yy]our)) ([a-z]+)', line)
+    match_list = re.findall(r'\b([Aa]n?|[Tt]he|[Mm]y|[Yy]our) ([a-z]+)\b', line)
     if match_list:
         for match in match_list:
             line = line.replace(' '.join(match), '{}_{}'.format(*match).lower())
@@ -116,7 +118,8 @@ def find_named(line):
         return match.group(1)
 
 def get_strings(line):
-    says_match = re.match(r'([A-Za-z]+(?: [A-Za-z]+)*) says (.*)', line)
+    global regex_variables
+    says_match = re.match(r'({}) says (.*)'.format(regex_variables), line)
     if says_match:
         line = says_match.group(1) + ' = "{}"'
         return line, says_match.group(2)
@@ -128,7 +131,9 @@ def get_strings(line):
 
 def convert_code(rockstar_code, py_rockstar):
     global ident
+    global regex_variables
     ident = 0
+    regex_variables = r'\b(?:(?:[Aa]n?|[Tt]he|[Mm]y|[Yy]our) [a-z]+|[A-Z][A-Za-z]+(?: [A-Z][A-Za-z]+)*)\b'
     most_recently_named = ''
     for line in rockstar_code:
         if line == '\n':
@@ -156,19 +161,19 @@ def convert_code(rockstar_code, py_rockstar):
             line_ident = '    ' * (ident - 1) if py_line == 'Else' else line_ident
             py_line = 'else:' if py_line == 'Else' else py_line
 
-            py_line = re.sub(r'Put (.*) into ([A-Za-z]+(?: [A-Za-z]+)*)', r'\g<2> = \g<1>', py_line)
-            py_line = re.sub(r'Build ([A-Za-z]+(?: [A-Za-z]+)*) up', r'\g<1> += 1', py_line)
-            py_line = re.sub(r'Knock ([A-Za-z]+(?: [A-Za-z]+)*) down', r'\g<1> -= 1', py_line)
-            py_line = re.sub(r'Listen to ([A-Za-z]+(?: [A-Za-z]+)*)', r'\g<1> = input()', py_line)
+            py_line = re.sub(r'Put (.*) into ({})'.format(regex_variables), r'\g<2> = \g<1>', py_line)
+            py_line = re.sub(r'Build ({}) up'.format(regex_variables), r'\g<1> += 1', py_line)
+            py_line = re.sub(r'Knock ({}) down'.format(regex_variables), r'\g<1> -= 1', py_line)
+            py_line = re.sub(r'Listen to ({})'.format(regex_variables), r'\g<1> = input()', py_line)
             py_line = re.sub(r'(?:Say|Shout|Whisper|Scream) (.*)', r'print(\g<1>)', py_line)
 
             py_line = find_poetic_number_literal(py_line)
             py_line = py_line.replace(' is ', ' = ', 1)
 
+            py_line = re.sub(r'({0}) taking ((?:{0}|\"[^\"]*\"|[0-9]+)(?:, ?(?:{0}|\"[^\"]*\"|[0-9]+))*)'.format(regex_variables), r'\g<1>(\g<2>)', py_line)
+
             py_line = find_proper_variables(py_line)
             py_line = find_common_variables(py_line)
-
-            py_line = re.sub(r'([A-Za-z]+(?: [A-Za-z]+)*) taking ([A-Za-z0-9_]+(?:, ?[A-Za-z_0-9]+)*)', r'\g<1>(\g<2>)', py_line)
             
             line_named = find_named(py_line)
             most_recently_named = line_named if line_named else most_recently_named
