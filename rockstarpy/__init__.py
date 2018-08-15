@@ -88,9 +88,9 @@ def create_if(line):
 
 def find_poetic_number_literal(line):
     global regex_variables
-    poetic_type_literals_keywords = ['True', 'False']
+    poetic_type_literals_keywords = ['true', 'false', 'nothing', 'nobody', 'nowhere']
     match = re.match(r'\b({})(?: is|\'s| was| were) (.+)'.format(regex_variables), line)
-    if match and match.group(2) not in poetic_type_literals_keywords:
+    if match and match.group(2).split()[0] not in poetic_type_literals_keywords:
         line = '{} = '.format(match.group(1))
         for word_number in match.group(2).split():
             period = '.' if word_number.endswith('.') else ''
@@ -143,12 +143,13 @@ def convert_code(rockstar_code, py_rockstar):
 
             line, comments = get_comments(line)
             line, line_strings = get_strings(line)
+            py_line = find_poetic_number_literal(line)
 
             for key in simple_subs:
-                line = line.strip()
-                line += ' '
-                line = line.replace(key, simple_subs[key])
-            py_line = line.strip('\n ,.;')
+                py_line = py_line.strip()
+                py_line += ' '
+                py_line = py_line.replace(key, simple_subs[key])
+            py_line = py_line.strip('\n ,.;')
 
             most_recently_named_keywords = [' it ', ' he ', ' she ', ' him ', ' her ', ' them ', ' they ',
                                             ' ze ', ' hir ', ' zie ', ' zir ', ' xe ', ' xem ', ' ve ', ' ver ']
@@ -167,7 +168,6 @@ def convert_code(rockstar_code, py_rockstar):
             py_line = re.sub(r'Listen to ({})'.format(regex_variables), r'\g<1> = input()', py_line)
             py_line = re.sub(r'(?:Say|Shout|Whisper|Scream) (.*)', r'print(\g<1>)', py_line)
 
-            py_line = find_poetic_number_literal(py_line)
             py_line = py_line.replace(' is ', ' = ', 1)
 
             py_line = re.sub(r'({0}) taking ((?:{0}|\"[^\"]*\"|[0-9]+)(?:, ?(?:{0}|\"[^\"]*\"|[0-9]+))*)'.format(regex_variables), r'\g<1>(\g<2>)', py_line)
