@@ -12,8 +12,11 @@ def check_files_identical(expected, actual):
                 fromfile='expected',
                 tofile='actual',
     )
-    diff = list(diff)
-    if len(diff):
+    line = None
+    for line in diff:
+        print(line, end='')
+    if line is not None:
+        print()
         assert False, "There are differences"
 
 def main():
