@@ -88,9 +88,8 @@ def create_if(line):
 
 def find_poetic_number_literal(line):
     global regex_variables
-    poetic_type_literals_keywords = ['true', 'false', 'nothing', 'nobody', 'nowhere']
     match = re.match(r'\b({})(?: is|\'s| was| were) (.+)'.format(regex_variables), line)
-    if match and match.group(2).split()[0] not in poetic_type_literals_keywords:
+    if match and match.group(2).split()[0] not in [key.strip() for key in simple_subs.keys()]:
         line = '{} = '.format(match.group(1))
         for word_number in match.group(2).split():
             period = '.' if word_number.endswith('.') else ''
