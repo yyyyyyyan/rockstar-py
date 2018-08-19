@@ -174,7 +174,7 @@ def convert_code(rockstar_code, py_rockstar):
 
             py_line = find_proper_variables(py_line)
             py_line = find_common_variables(py_line)
-            
+
             line_named = find_named(py_line)
             most_recently_named = line_named if line_named else most_recently_named
 

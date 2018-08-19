@@ -25,12 +25,12 @@ def main():
         file_name = os.path.splitext(rock_file)[0]  # take off extension
         py_file = file_name + ".py"
         assert py_file in py_files, "Did not create a corrosponding expected output for " + rock_file
-    
-        converted_code = StringIO() 
+
+        converted_code = StringIO()
         rockstar_code = ""
         with open(rock_file, 'r') as rockstar_file:
             rockstar_code = rockstar_file.readlines()
-        
+
         convert_code(rockstar_code, converted_code)
         with open(file_name +".py", 'r') as expected:
             expected_code = expected.read()
