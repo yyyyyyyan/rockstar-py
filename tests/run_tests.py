@@ -1,7 +1,11 @@
 import os
+import sys
 from io import StringIO
 import difflib
 
+path = os.path.dirname(os.path.realpath(__file__))
+path = '/'.join(path.split('/')[:-1])
+sys.path = [path] + sys.path
 from rockstarpy import convert_code
 
 
