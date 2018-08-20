@@ -130,7 +130,7 @@ def get_strings(line):
         return line, quotes_match.group(2)
     return line, None
 
-def convert_code(rockstar_code, py_rockstar):
+def convert_code(rockstar_code):
     global ident
     global regex_variables
     ident = 0
@@ -181,7 +181,7 @@ def convert_code(rockstar_code, py_rockstar):
 
             py_line = py_line.format(line_strings) if line_strings else py_line
 
-            py_rockstar.write(line_ident + py_line + comments + '\n')
+            yield line_ident + py_line + comments + '\n'
 
 
 if __name__ == '__main__':
