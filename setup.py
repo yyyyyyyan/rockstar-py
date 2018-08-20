@@ -5,14 +5,15 @@ with open('README.rst') as file:
 
 setup(
 	name='rockstar-py',
-	version='1.3.5',
+	version='1.3.6',
 	author='Yan Orestes',
 	author_email='yan.orestes@alura.com.br',
 	packages=['rockstarpy'],
 	description='Python transpiler for the esoteric language Rockstar',
 	long_description=long_description,
 	url='https://github.com/yanorestes/rockstar-py',
-	download_url='https://github.com/yanorestes/rockstar-py/archive/1.3.5.zip',
+	
+download_url='https://github.com/yanorestes/rockstar-py/archive/1.3.6.zip',
 	license='MIT',
 	keywords='esoteric rockstar',
 	classifiers=[

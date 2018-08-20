@@ -6,7 +6,8 @@ parser.add_argument('input', action='store', help='Input file (.rock)')
 output_group = parser.add_mutually_exclusive_group()
 output_group.add_argument('--output', action='store', help='Output file (.py)', default='output.py')
 output_group.add_argument('--stream', action='store_true', help='Print output to stdout')
-parser.add_argument('-v', action='version', help='Version', version='1.3.5')
+parser.add_argument('-v', action='version', help='Version', 
+version='1.3.6')
 
 def command_line():
     args = parser.parse_args()
