@@ -18,6 +18,7 @@ simple_subs = {
                 ' nobody ':' False ',
                 ' empty ':' False ',
                 ' gone ':' False ',
+                ' mysterious ':' False ',
                 ' true ':' True ',
                 ' right ':' True ',
                 ' yes ':' True ',
@@ -88,7 +89,7 @@ def create_if(line):
 
 def find_poetic_number_literal(line):
     global regex_variables
-    poetic_type_literals_keywords = ['true', 'false', 'nothing', 'nobody', 'nowhere']
+    poetic_type_literals_keywords = ['true', 'false', 'nothing', 'nobody', 'nowhere', 'empty', 'wrong', 'gone', 'no', 'lies', 'right', 'yes', 'ok', 'mysterious']
     match = re.match(r'\b({})(?: is|\'s| was| were) (.+)'.format(regex_variables), line)
     if match and match.group(2).split()[0] not in poetic_type_literals_keywords:
         line = '{} = '.format(match.group(1))
