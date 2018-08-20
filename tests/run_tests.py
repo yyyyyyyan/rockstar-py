@@ -1,6 +1,10 @@
 import os
+import sys
 import difflib
 
+path = os.path.dirname(os.path.realpath(__file__))
+path = '/'.join(path.split('/')[:-1])
+sys.path = [path] + sys.path
 from rockstarpy import convert_code
 
 
@@ -11,8 +15,11 @@ def check_files_identical(expected, actual):
                 fromfile='expected',
                 tofile='actual',
     )
-    diff = list(diff)
-    if len(diff):
+    line = None
+    for line in diff:
+        print(line, end='')
+    if line is not None:
+        print()
         assert False, "There are differences"
 
 def main():
@@ -36,5 +43,3 @@ def main():
 
 if __name__ == '__main__':
     main()
-
-
