@@ -133,12 +133,17 @@ def get_strings(line):
         return line, quotes_match.group(2)
     return line, None
 
-def convert_line(line):
+def breturn(ret, bstr):
+    if bstr:
+        ret = ret.encode('utf-8')
+    return ret
+
+def convert_line(line, bstr=False):
     global ident
     global most_recently_named
     if line == '\n':
         ident = ident - 1 if ident > 0 else 0
-        return ''
+        return breturn('', bstr)
     else:
         line_ident = '    ' * ident
 
@@ -181,4 +186,4 @@ def convert_line(line):
 
         py_line = py_line.format(line_strings) if line_strings else py_line
 
-        return line_ident + py_line + comments + '\n'
+        return breturn(line_ident + py_line + comments + '\n', bstr)
