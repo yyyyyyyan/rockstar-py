@@ -29,15 +29,15 @@ def command_line():
 
     # connect output
     if args.stdout:
-        bstr = False
+        enc = False
         output = sys.stdout
     else:
-        bstr = True
+        enc = True
         output = open(args.output, 'wb', 0)
 
     # Read, Convert, Write, loop
     for line in lyrics:
-        output.write( convert.convert_line(line, bstr=bstr) )
+        output.write( encode( convert.convert_line(line), enc ) )
 
     # close input
     if not args.stdin:
@@ -46,3 +46,9 @@ def command_line():
     # close output
     if not args.stdout:
         output.close()
+
+
+def encode(line, enc):
+    if enc:
+        return line.encode()
+    return line
