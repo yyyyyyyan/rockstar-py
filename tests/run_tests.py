@@ -2,10 +2,8 @@ import os
 import sys
 import difflib
 
-path = os.path.dirname(os.path.realpath(__file__))
-path = '/'.join(path.split('/')[:-1])
-sys.path = [path] + sys.path
-from rockstarpy import convert_code
+sys.path=[os.path.dirname(os.path.dirname(os.path.realpath(__file__)))]+sys.path
+from rockstarpy import convert
 
 
 def check_files_identical(expected, actual):
@@ -32,14 +30,15 @@ def main():
         py_file = file_name + ".py"
         assert py_file in py_files, "Did not create a corrosponding expected output for " + rock_file
 
-        rockstar_code = ""
+        converted_code = ''
         with open(rock_file, 'r') as rockstar_file:
-            rockstar_code = rockstar_file.readlines()
+            for line in rockstar_file:
+                converted_code += convert.convert_line(line)
 
-        converted_code = ''.join(convert_code(rockstar_code))
         with open(file_name +".py", 'r') as expected:
             expected_code = expected.read()
-            check_files_identical(expected_code, converted_code)
+
+        check_files_identical(expected_code, converted_code)
 
 if __name__ == '__main__':
     main()

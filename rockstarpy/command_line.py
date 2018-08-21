@@ -1,33 +1,54 @@
+import sys
 import argparse
-import rockstarpy as rockstar
+
+from rockstarpy import convert
+
 
 parser = argparse.ArgumentParser(description="Python transpiler for the esoteric language Rockstar")
-parser.add_argument('input', action='store', help='Input file (.rock)')
-output_group = parser.add_mutually_exclusive_group()
+
+input_group = parser.add_mutually_exclusive_group(required=True)
+input_group.add_argument('--input', action='store', help='Input file (.rock)')
+input_group.add_argument('--stdin', action='store_true', help='Stream in stdin')
+
+output_group = parser.add_mutually_exclusive_group(required=True)
 output_group.add_argument('--output', action='store', help='Output file (.py)', default='output.py')
-output_group.add_argument('--stream', action='store_true', help='Print output to stdout')
-parser.add_argument('-v', action='version', help='Version', 
-version='1.3.6')
+output_group.add_argument('--stdout', action='store_true', help='Stream to stdout')
+
+parser.add_argument('-v', action='version', help='Version', version='1.3.6')
+
+args = parser.parse_args()
+
 
 def command_line():
-    args = parser.parse_args()
 
-    try:
-        with open(args.input, 'r') as rockstar_file:
-            rockstar_code = rockstar_file.readlines()
-    except FileNotFoundError:
-        print('File not found.')
+    # connnect input
+    if args.stdin:
+        lyrics = sys.stdin
     else:
-        if args.stream:
-            stream(rockstar_code)
-        else:
-            write(rockstar_code, args.output)
+        lyrics = open(args.input, 'r')
 
-def stream(rockstar_code):
-    for line in rockstar.convert_code(rockstar_code):
-        print(line,end="")
+    # connect output
+    if args.stdout:
+        enc = False
+        output = sys.stdout
+    else:
+        enc = True
+        output = open(args.output, 'wb', 0)
 
-def write(rockstar_code, output):
-    with open(output, 'w') as py_rockstar:
-        for line in rockstar.convert_code(rockstar_code):
-            py_rockstar.write(line)
+    # Read, Convert, Write, loop
+    for line in lyrics:
+        output.write( encode( convert.convert_line(line), enc ) )
+
+    # close input
+    if not args.stdin:
+        lyrics.close()
+
+    # close output
+    if not args.stdout:
+        output.close()
+
+
+def encode(line, enc):
+    if enc:
+        return line.encode()
+    return line
