@@ -3,15 +3,15 @@ import sys
 import difflib
 
 sys.path=[os.path.dirname(os.path.dirname(os.path.realpath(__file__)))]+sys.path
-from rockstarpy import convert
+from rockstarpy.transpile import Transpiler
 
 
 def check_files_identical(expected, actual):
     diff = difflib.unified_diff(
-                expected,
-                actual,
-                fromfile='expected',
-                tofile='actual',
+        expected,
+        actual,
+        fromfile='expected',
+        tofile='actual',
     )
     line = None
     for line in diff:
@@ -19,6 +19,7 @@ def check_files_identical(expected, actual):
     if line is not None:
         print()
         assert False, "There are differences"
+
 
 def main():
     files = os.listdir('.')
@@ -30,15 +31,18 @@ def main():
         py_file = file_name + ".py"
         assert py_file in py_files, "Did not create a corrosponding expected output for " + rock_file
 
+        transpiler = Transpiler()
+
         converted_code = ''
         with open(rock_file, 'r') as rockstar_file:
             for line in rockstar_file:
-                converted_code += convert.convert_line(line)
+                converted_code += transpiler.transpile_line(line)
 
         with open(file_name +".py", 'r') as expected:
             expected_code = expected.read()
 
         check_files_identical(expected_code, converted_code)
+
 
 if __name__ == '__main__':
     main()
