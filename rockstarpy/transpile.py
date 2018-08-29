@@ -52,7 +52,7 @@ class Transpiler(object):
             ' is as small as ':' <= ',
             ' is as weak as ':' <= ',
             ' is not ':' != ',
-            ' ain\'t ':' != ',
+            ' aint ':' != ',
             'Until ':'while not ',
             'While ':'while '
         }
@@ -139,6 +139,8 @@ class Transpiler(object):
             line, comments = self.get_comments(line)
             line, line_strings = self.get_strings(line)
             py_line = self.find_poetic_number_literal(line)
+
+            py_line = py_line.replace('\'', '')
 
             for key in self.simple_subs:
                 py_line = py_line.strip()
