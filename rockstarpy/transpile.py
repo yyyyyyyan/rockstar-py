@@ -60,7 +60,7 @@ class Transpiler(object):
     def get_comments(self, line):
         if '(' in line:
             line, comment = line.split('(')
-            comment = ' #' + comment.strip(')\n ')
+            comment = ' # ' + comment.strip(')\n ')
         else:
             comment = ''
         return line, comment
