@@ -137,8 +137,15 @@ class Transpiler(object):
             line_ident = '    ' * self.ident
 
             line, comments = self.get_comments(line)
-            line, line_strings = self.get_strings(line)
-            py_line = self.find_poetic_number_literal(line)
+            py_line, line_strings = self.get_strings(line)
+
+            for key in self.simple_subs:
+                py_line = py_line.strip()
+                py_line += ' '
+                py_line = py_line.replace(key, self.simple_subs[key])
+            py_line = py_line.strip('\n ,.;')
+
+            py_line = self.find_poetic_number_literal(py_line)
 
             py_line = py_line.replace('\'', '')
 
