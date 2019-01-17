@@ -168,7 +168,7 @@ class Transpiler(object):
 
             py_line = re.sub(r'Put (.*) into ({})'.format(self.regex_variables), r'\g<2> = \g<1>', py_line)
             py_line = re.sub(r'Build ({}) up'.format(self.regex_variables), r'\g<1> += 1', py_line)
-            py_line = re.sub(r'Knock ({}) down'.format(self.regex_variables), r'\g<1> -= 1', py_line)
+            py_line = re.sub(r'Knock ({}) down(\, down)*'.format(self.regex_variables), r'\g<1> -= ' + str(1 + py_line.count(", down")), py_line)
             py_line = re.sub(r'Listen to ({})'.format(self.regex_variables), r'\g<1> = input()', py_line)
             py_line = re.sub(r'(?:Say|Shout|Whisper|Scream) (.*)', r'print(\g<1>)', py_line)
 
