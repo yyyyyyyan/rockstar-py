@@ -62,7 +62,7 @@ class TestCalculation(unittest.TestCase):
         self.assertEqual(py_line, 'my_money += 1\n')
 
 
-    @unittest.skip("Compund assignment not implemented, yet")
+    @unittest.skip("Compound assignment not implemented, yet")
     def test_compund_addition_assignment(self):
         transpiler = Transpiler()
         py_line = transpiler.transpile_line('Let X be with 10\n')

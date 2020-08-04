@@ -15,7 +15,6 @@ class TestVariables(unittest.TestCase):
         py_line = transpiler.transpile_line("Tommy is a rockstar\n")
         self.assertEqual(py_line, 'Tommy = 18\n')
 
-    @unittest.skip("numeric values don't work properly")
     def test_common_variables(self):
         transpiler = Transpiler()
         py_line = transpiler.transpile_line("My variable is 5\n")

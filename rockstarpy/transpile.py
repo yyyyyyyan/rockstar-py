@@ -90,13 +90,16 @@ class Transpiler(object):
 
     def find_poetic_number_literal(self, line):
         poetic_type_literals_keywords = ['True', 'False']
-        match = re.match(r'\b({})(?: is|\'s| was| were) (.+)'.format(self.regex_variables), line)
+        match = re.match(r'\b({0})(?: is|\'s| was| were) ([\d\w\.\s]+)'.format(self.regex_variables), line)
         if match and match.group(2).split()[0] not in poetic_type_literals_keywords:
             line = '{} = '.format(match.group(1))
             for word_number in match.group(2).split():
-                period = '.' if word_number.endswith('.') else ''
-                alpha_word = re.sub('[^A-Za-z]', '', word_number)
-                line += str(len(alpha_word) % 10) + period
+                if re.match(r'\d+', word_number):
+                    line += str(word_number)
+                else:
+                    period = '.' if word_number.endswith('.') else ''
+                    alpha_word = re.sub(r'[^A-Za-z\-]', '', word_number)
+                    line += str(len(alpha_word) % 10) + period
         return line
 
     def find_proper_variables(self, line):

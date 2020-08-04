@@ -20,12 +20,17 @@ class TestAssignment(unittest.TestCase):
         py_line = transpiler.transpile_line('Life is a one day after another\n')
         self.assertEqual(py_line, 'Life = 13357\n')
 
-    @unittest.skip("numeric values don't work properly")
     def test_is_numeric(self):
         transpiler = Transpiler()
         py_line = transpiler.transpile_line('Seven is 11\n')
         self.assertEqual(py_line, 'Seven = 11\n')
 
+    def test_is_numeric_with_dot(self):
+        transpiler = Transpiler()
+        py_line = transpiler.transpile_line('X is 1.23\n')
+        self.assertEqual(py_line, 'X = 1.23\n')
+
+    @unittest.skip("apostrophes are not recognized as poetic literals")
     def test_is_poetic_with_dot(self):
         transpiler = Transpiler()
         py_line = transpiler.transpile_line('My dreams were ice. A life unfulfilled; wakin\' everybody up, taking booze and pills\n')
@@ -40,7 +45,6 @@ class TestAssignment(unittest.TestCase):
         py_line = transpiler.transpile_line('God is power-hungry\n')
         self.assertEqual(py_line, 'God = 2\n')
 
-    @unittest.skip("numeric values don't work properly")
     def test_is_poetic_and_numeric(self):
         transpiler = Transpiler()
         py_line = transpiler.transpile_line('Car is 4 W D\n')
