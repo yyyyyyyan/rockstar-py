@@ -90,7 +90,7 @@ class Transpiler(object):
 
     def find_poetic_number_literal(self, line):
         poetic_type_literals_keywords = ['True', 'False']
-        match = re.match(r'\b({0})(?: is|\'s| was| were) ([\d\w\.\s]+)'.format(self.regex_variables), line)
+        match = re.match(r'\b({0})(?: is|\'s| was| were) ([\d\w\.,\:\!\;\'\-\s]+)'.format(self.regex_variables), line)
         if match and match.group(2).split()[0] not in poetic_type_literals_keywords:
             line = '{} = '.format(match.group(1))
             for word_number in match.group(2).split():

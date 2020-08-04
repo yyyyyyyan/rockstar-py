@@ -30,13 +30,11 @@ class TestAssignment(unittest.TestCase):
         py_line = transpiler.transpile_line('X is 1.23\n')
         self.assertEqual(py_line, 'X = 1.23\n')
 
-    @unittest.skip("apostrophes are not recognized as poetic literals")
     def test_is_poetic_with_dot(self):
         transpiler = Transpiler()
         py_line = transpiler.transpile_line('My dreams were ice. A life unfulfilled; wakin\' everybody up, taking booze and pills\n')
         self.assertEqual(py_line, 'my_dreams = 3.1415926535\n')
 
-    @unittest.skip("hyphens are not recognized as poetic literals")
     def test_is_poetic_with_hyphen(self):
         transpiler = Transpiler()
         py_line = transpiler.transpile_line('Greed is all-consuming\n')
@@ -56,7 +54,6 @@ class TestAssignment(unittest.TestCase):
         py_line = transpiler.transpile_line('Tommy was without\n')
         self.assertEqual(py_line, 'Tommy = 7\n')
 
-    @unittest.skip("string values don't work properly")
     def test_is_string(self):
         transpiler = Transpiler()
         py_line = transpiler.transpile_line('Message is "Hello"\n')
