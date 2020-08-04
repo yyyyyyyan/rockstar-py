@@ -60,6 +60,27 @@ class TestAssignment(unittest.TestCase):
         self.assertEqual(py_line, 'Message = "Hello"\n')
 
 
+    def test_let_be_bool(self):
+        transpiler = Transpiler()
+        py_line = transpiler.transpile_line('Let my beer be empty\n')
+        self.assertEqual(py_line, 'my_beer = False\n')
+
+    def test_let_be_poetic(self):
+        transpiler = Transpiler()
+        py_line = transpiler.transpile_line('Let Stuart be a yellow Minion\n')
+        self.assertEqual(py_line, 'Stuart = 166\n')
+
+    def test_let_be_numeric(self):
+        transpiler = Transpiler()
+        py_line = transpiler.transpile_line('Let One be 0\n')
+        self.assertEqual(py_line, 'One = 0\n')
+
+    def test_let_be_string(self):
+        transpiler = Transpiler()
+        py_line = transpiler.transpile_line('Let the letter be "R"\n')
+        self.assertEqual(py_line, 'the_letter = "R"\n')
+
+
     def test_put_into_bool(self):
         transpiler = Transpiler()
         py_line = transpiler.transpile_line('Put nothing into my hand\n')

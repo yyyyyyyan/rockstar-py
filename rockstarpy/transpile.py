@@ -88,6 +88,12 @@ class Transpiler(object):
             line += ':'
         return line
 
+    def replace_let_be_with_is(self, line):
+        match = re.match(r'Let ({0}) be (.+)'.format(self.regex_variables), line)
+        if match:
+            return match.group(1) + " is " + match.group(2)
+        return line
+
     def find_poetic_number_literal(self, line):
         poetic_type_literals_keywords = ['True', 'False']
         match = re.match(r'\b({0})(?: is|\'s| was| were) ([\d\w\.,\:\!\;\'\-\s]+)'.format(self.regex_variables), line)
@@ -148,6 +154,7 @@ class Transpiler(object):
                 py_line = py_line.replace(key, self.simple_subs[key])
             py_line = py_line.strip('\n ,.;')
 
+            py_line = self.replace_let_be_with_is(py_line)
             py_line = self.find_poetic_number_literal(py_line)
 
             py_line = py_line.replace('\'', '')
