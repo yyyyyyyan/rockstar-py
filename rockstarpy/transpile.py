@@ -88,15 +88,24 @@ class Transpiler(object):
             line += ':'
         return line
 
+    def replace_let_be_with_is(self, line):
+        match = re.match(r'Let ({0}) be (.+)'.format(self.regex_variables), line)
+        if match:
+            return match.group(1) + " is " + match.group(2)
+        return line
+
     def find_poetic_number_literal(self, line):
-        poetic_type_literals_keywords = ['true', 'false', 'nothing', 'nobody', 'nowhere', 'empty', 'wrong', 'gone', 'no', 'lies', 'right', 'yes', 'ok', 'mysterious']
-        match = re.match(r'\b({})(?: is|\'s| was| were) (.+)'.format(self.regex_variables), line)
+        poetic_type_literals_keywords = ['True', 'False']
+        match = re.match(r'\b({0})(?: is|\'s| was| were) ([\d\w\.,\:\!\;\'\-\s]+)'.format(self.regex_variables), line)
         if match and match.group(2).split()[0] not in poetic_type_literals_keywords:
             line = '{} = '.format(match.group(1))
             for word_number in match.group(2).split():
-                period = '.' if word_number.endswith('.') else ''
-                alpha_word = re.sub('[^A-Za-z]', '', word_number)
-                line += str(len(alpha_word) % 10) + period
+                if re.match(r'\d+', word_number):
+                    line += str(word_number)
+                else:
+                    period = '.' if word_number.endswith('.') else ''
+                    alpha_word = re.sub(r'[^A-Za-z\-]', '', word_number)
+                    line += str(len(alpha_word) % 10) + period
         return line
 
     def find_proper_variables(self, line):
@@ -145,6 +154,7 @@ class Transpiler(object):
                 py_line = py_line.replace(key, self.simple_subs[key])
             py_line = py_line.strip('\n ,.;')
 
+            py_line = self.replace_let_be_with_is(py_line)
             py_line = self.find_poetic_number_literal(py_line)
 
             py_line = py_line.replace('\'', '')

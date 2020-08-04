@@ -1,6 +1,7 @@
 import os
 import sys
 import difflib
+import unittest
 
 sys.path=[os.path.dirname(os.path.dirname(os.path.realpath(__file__)))]+sys.path
 from rockstarpy.transpile import Transpiler
@@ -43,6 +44,9 @@ def main():
 
         check_files_identical(expected_code, converted_code)
 
+    suite = unittest.defaultTestLoader.discover(".", pattern='test_*.py')
+    runner = unittest.TextTestRunner()
+    runner.run(suite)
 
 if __name__ == '__main__':
     main()
