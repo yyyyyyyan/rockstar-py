@@ -1,55 +1,51 @@
+from rockstarpy.transpile import Transpiler
+from io import BytesIO
 import sys
 import argparse
 
-from rockstarpy.transpile import Transpiler
-
-
-parser = argparse.ArgumentParser(description="Python transpiler for the esoteric language Rockstar")
+parser = argparse.ArgumentParser(
+    description="Python transpiler for the esoteric language Rockstar"
+)
 
 input_group = parser.add_mutually_exclusive_group(required=True)
-input_group.add_argument('--input', action='store', help='Input file (.rock)')
-input_group.add_argument('--stdin', action='store_true', help='Stream in stdin')
+input_group.add_argument("-i", "--input", action="store", help="Input file (.rock)")
+input_group.add_argument(
+    "--stdin",
+    action="store_const",
+    const=sys.stdin.buffer,
+    help="Stream in stdin. Send EOF (Ctrl+D in *nix, Ctrl+Z in Windows) to stop",
+)
 
-output_group = parser.add_mutually_exclusive_group(required=True)
-output_group.add_argument('--output', action='store', help='Output file (.py)', default='output.py')
-output_group.add_argument('--stdout', action='store_true', help='Stream to stdout')
+output_group = parser.add_mutually_exclusive_group()
+output_group.add_argument(
+    "-o", "--output", action="store", help="Output file (.py)", default="output.py"
+)
+output_group.add_argument(
+    "--stdout", action="store_const", const=sys.stdout.buffer, help="Stream to stdout"
+)
+output_group.add_argument(
+    "--exec", action="store_true", help="Execute (without saving) the transpiled code "
+)
 
-parser.add_argument('-v', action='version', help='Version', version='1.3.6')
+parser.add_argument(
+    "-v", "--version", action="version", help="Version", version="2.0.0"
+)
 
 args = parser.parse_args()
 
 
 def command_line():
+    lyrics = args.stdin or open(args.input, "rb")
+    output = BytesIO() if args.exec else args.stdout or open(args.output, "wb")
 
-    # connnect input
-    if args.stdin:
-        lyrics = sys.stdin
-    else:
-        lyrics = open(args.input, 'r')
-
-    # connect output
-    if args.stdout:
-        enc = False
-        output = sys.stdout
-    else:
-        enc = True
-        output = open(args.output, 'wb', 0)
-
-    # Read, Convert, Write, loop
     transpiler = Transpiler()
     for line in lyrics:
-        output.write( encode( transpiler.transpile_line(line), enc ) )
+        line = line.decode("utf8")
+        output.write(transpiler.transpile_line(line).encode("utf8"))
 
-    # close input
-    if not args.stdin:
+    if args.exec:
+        exec(output.getvalue())
+    if args.stdin is None:
         lyrics.close()
-
-    # close output
-    if not args.stdout:
+    if args.stdout is None:
         output.close()
-
-
-def encode(line, enc):
-    if enc:
-        return line.encode()
-    return line

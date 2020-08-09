@@ -1,4 +1,4 @@
 from .command_line import command_line
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     command_line()
