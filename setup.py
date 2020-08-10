@@ -22,14 +22,17 @@ setup(
         "License :: OSI Approved :: MIT License",
         "Natural Language :: English",
         "Operating System :: OS Independent",
+        "Programming Language :: Python :: 3",
         "Programming Language :: Python :: 3 :: Only",
         "Programming Language :: Python :: 3.5",
         "Programming Language :: Python :: 3.6",
         "Programming Language :: Python :: 3.7",
+        "Programming Language :: Python :: 3.8",
+        "Programming Language :: Python :: 3.9",
         "Topic :: Software Development :: Compilers",
         "Topic :: Software Development :: Interpreters",
     ],
-    python_requires=">= 3.4",
+    python_requires=">= 3.5",
     entry_points={
         "console_scripts": ["rockstar-py=rockstarpy.command_line:command_line"]
     },

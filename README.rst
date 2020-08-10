@@ -28,8 +28,7 @@ your local machine for development and testing purposes.
 Installing
 ~~~~~~~~~~
 
-First, make sure you have installed a supported Python version. We use ``python_requires=">= 3.4"``,
-but our tests only cover Python >= 3.6, since 3.5 is already reaching its EOF on september/2020.
+First, make sure you have installed a supported Python version (>= 3.5).
 
 Now, the easiest way of installing **rockstar-py** is using pip:
 
