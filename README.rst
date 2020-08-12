@@ -28,7 +28,7 @@ your local machine for development and testing purposes.
 Installing
 ~~~~~~~~~~
 
-First, make sure you have installed a supported Python version (>= 3.5).
+First, make sure you have installed a supported Python version (>= 3.6).
 
 Now, the easiest way of installing **rockstar-py** is using pip:
 
