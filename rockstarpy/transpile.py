@@ -3,7 +3,10 @@ import re
 
 class Transpiler(object):
     def __init__(self):
-        self.ident = 0
+        self.indentation_style = " " * 4
+        self.current_indentation = 0
+        self.in_function = False
+        self.globals = set()
         self.regex_variables = r"\b(?:(?:[Aa]n?|[Tt]he|[Mm]y|[Yy]our) [a-z]+|[A-Z][A-Za-z]+(?: [A-Z][A-Za-z]+)*)\b"
         self.most_recently_named = ""
         self.simple_subs = {
@@ -69,23 +72,24 @@ class Transpiler(object):
             r"\b({0}) takes ({0}(?: and {0})*)\b".format(self.regex_variables), line
         )
         if match:
-            self.ident += 1
+            self.current_indentation += 1
             line = "def {}({}):".format(
                 match.group(1), match.group(2).replace(" and", ",")
             )
+            self.in_function = True
         return line
 
     def create_while(self, line):
         if line.startswith("while "):
             line = line.replace(" is ", " == ")
             line += ":"
-            self.ident += 1
+            self.current_indentation += 1
         return line
 
     def create_if(self, line):
         match = re.match(r"If .*", line)
         if match:
-            self.ident += 1
+            self.current_indentation += 1
             line = line.replace(" is ", " == ")
             line = line.replace("If", "if")
             line += ":"
@@ -148,10 +152,11 @@ class Transpiler(object):
 
     def transpile_line(self, line):
         if line == "\n":
-            self.ident = self.ident - 1 if self.ident > 0 else 0
+            self.current_indentation = self.current_indentation - 1 if self.current_indentation > 0 else 0
             return ""
         else:
-            line_ident = "    " * self.ident
+            line_ident = self.indentation_style * self.current_indentation
+            self.in_function = False if self.current_indentation == 0 else self.in_function
 
             line, comments = self.get_comments(line)
             py_line, line_strings = self.get_strings(line)
@@ -198,7 +203,7 @@ class Transpiler(object):
             py_line = self.create_function(py_line)
             py_line = self.create_while(py_line)
             py_line = self.create_if(py_line)
-            line_ident = "    " * (self.ident - 1) if py_line == "Else" else line_ident
+            line_ident = self.indentation_style * (self.current_indentation - 1) if py_line == "Else" else line_ident
             py_line = "else:" if py_line == "Else" else py_line
 
             py_line = re.sub(
@@ -237,9 +242,12 @@ class Transpiler(object):
             py_line = self.find_common_variables(py_line)
 
             line_named = self.find_named(py_line)
-            self.most_recently_named = (
-                line_named if line_named else self.most_recently_named
-            )
+            if line_named:
+                self.most_recently_named = line_named
+                if not self.in_function:
+                    self.globals.add(line_named)
+                elif line_named in self.globals:
+                    py_line = f"global {line_named}\n" + line_ident + py_line
 
             py_line = py_line.format(line_strings) if line_strings else py_line
 
