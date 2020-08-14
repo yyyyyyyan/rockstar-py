@@ -96,8 +96,8 @@ class TestBlocks(unittest.TestCase):
         transpiler = Transpiler()
         transpiled = [transpiler.transpile_line(line) for line in rock]
         self.assertEqual(len(py), len(transpiled))
-        for i in range(len(py)):
-            self.assertEqual(py[i], transpiled[i])
+        for py_line, transpiled_line in zip(py, transpiled):
+            self.assertEqual(py_line, transpiled_line)
 
 
 if __name__ == "__main__":
