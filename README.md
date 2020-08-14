@@ -4,6 +4,7 @@
 
 <p align="center">
 <a href="https://travis-ci.com/yyyyyyyan/rockstar-py"><img alt="Travis (.org)" src="https://img.shields.io/travis/yyyyyyyan/rockstar-py"></a>
+<a href="https://www.codacy.com/manual/yyyyyyyan/rockstar-py"><img alt="Codacy grade" src="https://img.shields.io/codacy/grade/6496fe0a545242c5bd8c4723f1d0f45f"></a>
 <a href="https://pypi.org/project/rockstar-py"><img alt="PyPI - Version" src="https://img.shields.io/pypi/v/rockstar-py"></a>
 <a href="https://pypi.org/project/rockstar-py"><img alt="PyPI - Status" src="https://img.shields.io/pypi/status/rockstar-py"></a>
 <a href="https://pepy.tech/project/rockstar-py"><img alt="PyPI - Status" src="https://pepy.tech/badge/rockstar-py"></a>
