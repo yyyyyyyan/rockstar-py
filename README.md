@@ -3,17 +3,22 @@
 <h2 align="center">Python transpiler for the esoteric language <a href="https://github.com/dylanbeattie/rockstar">Rockstar</a></h2>
 
 <p align="center">
-<a href="https://travis-ci.com/yyyyyyyan/rockstar-py"><img src="https://img.shields.io/travis/yyyyyyyan/rockstar-py" alt="Travis (.org)"></a>
-<a href="https://pypi.org/project/rockstar-py"><img src="https://img.shields.io/pypi/v/rockstar-py" alt="PyPI - Version"></a>
-<a href="https://pypi.org/project/rockstar-py"><img src="https://img.shields.io/pypi/status/rockstar-py" alt="PyPI - Status"></a>
-<a href="https://pepy.tech/project/rockstar-py"><img src="https://pepy.tech/badge/rockstar-py" alt="PyPI - Status"></a>
-<a href="https://pypi.org/project/rockstar-py"><img src="https://img.shields.io/pypi/pyversions/rockstar-py" alt="PyPI - Python Version"></a>
-<a href="https://pypi.org/project/rockstar-py"><img src="https://img.shields.io/pypi/wheel/rockstar-py" alt="PyPI - Wheel"></a>
-<a href="https://github.com/psf/black"><img src="https://img.shields.io/badge/code%20style-black-000000.svg" alt="Code Style - Black"></a>
-<a href="https://github.com/yyyyyyyan/rockstar-py/graphs/contributors"><img src="https://img.shields.io/github/contributors/yyyyyyyan/rockstar-py" alt="GitHub contributors"></a>
-<a href="https://github.com/yyyyyyyan/rockstar-py/stargazers"><img src="https://img.shields.io/github/stars/yyyyyyyan/rockstar-py" alt="GitHub stars"></a>
-<a href="https://github.com/yyyyyyyan/rockstar-py"><img src="https://img.shields.io/github/languages/code-size/yyyyyyyan/rockstar-py" alt="GitHub code size in bytes"></a>
-<a href="https://github.com/yyyyyyyan/rockstar-py/blob/master/LICENSE.txt"><img src="https://img.shields.io/github/license/yyyyyyyan/rockstar-py" alt="License - MIT"></a>
+<a href="https://travis-ci.com/yyyyyyyan/rockstar-py"><img alt="Travis (.org)" src="https://img.shields.io/travis/yyyyyyyan/rockstar-py"></a>
+<a href="https://pypi.org/project/rockstar-py"><img alt="PyPI - Version" src="https://img.shields.io/pypi/v/rockstar-py"></a>
+<a href="https://pypi.org/project/rockstar-py"><img alt="PyPI - Status" src="https://img.shields.io/pypi/status/rockstar-py"></a>
+<a href="https://pepy.tech/project/rockstar-py"><img alt="PyPI - Status" src="https://pepy.tech/badge/rockstar-py"></a>
+<a href="https://pypi.org/project/rockstar-py"><img alt="PyPI - Python Version" src="https://img.shields.io/pypi/pyversions/rockstar-py"></a>
+<a href="https://pypi.org/project/rockstar-py"><img alt="PyPI - Wheel" src="https://img.shields.io/pypi/wheel/rockstar-py"></a>
+<a href="https://github.com/yyyyyyyan/rockstar-py/search?l=python"><img alt="GitHub top language" src="https://img.shields.io/github/languages/top/yyyyyyyan/rockstar-py"></a>
+<a href="https://github.com/psf/black"><img alt="Code Style - Black" src="https://img.shields.io/badge/code%20style-black-000000.svg"></a>
+<a href="https://github.com/yyyyyyyan/rockstar-py/graphs/contributors"><img alt="GitHub contributors" src="https://img.shields.io/github/contributors/yyyyyyyan/rockstar-py"></a>
+<a href="https://github.com/yyyyyyyan/rockstar-py/stargazers"><img alt="GitHub stars" src="https://img.shields.io/github/stars/yyyyyyyan/rockstar-py"></a>
+<a href="https://github.com/yyyyyyyan/rockstar-py/issues"><img alt="GitHub issues" src="https://img.shields.io/github/issues/yyyyyyyan/rockstar-py"></a>
+<a href="https://github.com/yyyyyyyan/rockstar-py"><img alt="GitHub code size in bytes" src="https://img.shields.io/github/languages/code-size/yyyyyyyan/rockstar-py"></a>
+<a href="https://github.com/yyyyyyyan/rockstar-py/releases/latest"><img alt="GitHub Release Date" src="https://img.shields.io/github/release-date/yyyyyyyan/rockstar-py"></a>
+<a href="https://github.com/yyyyyyyan/rockstar-py/commits/master"><img alt="GitHub commits since tagged version" src="https://img.shields.io/github/commits-since/yyyyyyyan/rockstar-py/latest"></a>
+<a href="https://github.com/yyyyyyyan/rockstar-py/commits/master"><img alt="GitHub last commit" src="https://img.shields.io/github/last-commit/yyyyyyyan/rockstar-py"></a>
+<a href="https://github.com/yyyyyyyan/rockstar-py/blob/master/LICENSE.txt"><img alt="License - MIT" src="https://img.shields.io/github/license/yyyyyyyan/rockstar-py"></a>
 </p>
 
 ## Getting Started
@@ -271,8 +276,7 @@ requests that improve speed and legibility of the code.
 
 ## Authors
 
-  - **yyyyyyyan** - *Initial work* -
-    [yyyyyyyan](https://github.com/yyyyyyyan)
+- **[yyyyyyyan](https://github.com/yyyyyyyan)** - *Initial work*
 
 ## Contributors
 
@@ -287,9 +291,6 @@ file for details.
 
 ## Acknowledgments
 
-  - Hat tip to [dylanbeattie](https://github.com/dylanbeattie/) for
-    creating Rockstar
-  - The FizzBuzz example works well. If valid code doesn’t work, create
-    an issue so I can get a look.
-  - I’ll work on the readibility and organization of the code, would
-    love suggestions on how/where to do that.
+- Hat tip to [dylanbeattie](https://github.com/dylanbeattie/) for creating Rockstar
+- The FizzBuzz example works well. If valid code doesn’t work, create an issue so I can get a look.
+- I’ll work on the readibility and organization of the code, would love suggestions on how/where to do that.
