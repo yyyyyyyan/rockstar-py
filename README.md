@@ -1,5 +1,7 @@
 # rockstar-py
 
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/5696db64cc9840c592aa5af33827ce6d)](https://app.codacy.com/manual/yyyyyyyan/rockstar-py?utm_source=github.com&utm_medium=referral&utm_content=yyyyyyyan/rockstar-py&utm_campaign=Badge_Grade_Dashboard)
+
 <h2 align="center">Python transpiler for the esoteric language <a href="https://github.com/dylanbeattie/rockstar">Rockstar</a></h2>
 
 <p align="center">
