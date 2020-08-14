@@ -276,7 +276,7 @@ requests that improve speed and legibility of the code.
 
 ## Authors
 
-- **[yyyyyyyan](https://github.com/yyyyyyyan)** - *Initial work*
+-   **[yyyyyyyan](https://github.com/yyyyyyyan)** - *Initial work*
 
 ## Contributors
 
@@ -291,6 +291,6 @@ file for details.
 
 ## Acknowledgments
 
-- Hat tip to [dylanbeattie](https://github.com/dylanbeattie/) for creating Rockstar
-- The FizzBuzz example works well. If valid code doesn’t work, create an issue so I can get a look.
-- I’ll work on the readibility and organization of the code, would love suggestions on how/where to do that.
+-   Hat tip to [dylanbeattie](https://github.com/dylanbeattie/) for creating Rockstar
+-   The FizzBuzz example works well. If valid code doesn’t work, create an issue so I can get a look.
+-   I’ll work on the readibility and organization of the code, would love suggestions on how/where to do that.
