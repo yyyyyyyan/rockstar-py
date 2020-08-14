@@ -1,6 +1,6 @@
 from setuptools import setup
 
-with open("README.rst") as file:
+with open("README.md") as file:
     long_description = file.read()
 
 setup(
@@ -11,6 +11,7 @@ setup(
     packages=["rockstarpy"],
     description="Python transpiler for the esoteric language Rockstar",
     long_description=long_description,
+    long_description_content_type="text/markdown",
     url="https://github.com/yyyyyyyan/rockstar-py",
     download_url="https://github.com/yyyyyyyan/rockstar-py/archive/2.0.0.zip",
     license="MIT",

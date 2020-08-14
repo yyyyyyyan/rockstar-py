@@ -1,74 +1,64 @@
-rockstar-py
-===========
+# rockstar-py
 
-.. raw:: html
+<h2 align="center">Python transpiler for the esoteric language <a href="https://github.com/dylanbeattie/rockstar">Rockstar</a></h2>
 
-    <h2 align="center">Python transpiler for the esoteric language <a href="https://github.com/dylanbeattie/rockstar">Rockstar</a></h2>
+<p align="center">
+<a href="https://travis-ci.com/yyyyyyyan/rockstar-py"><img src="https://img.shields.io/travis/yyyyyyyan/rockstar-py" alt="Travis (.org)"></a>
+<a href="https://pypi.org/project/rockstar-py"><img src="https://img.shields.io/pypi/v/rockstar-py" alt="PyPI - Version"></a>
+<a href="https://pypi.org/project/rockstar-py"><img src="https://img.shields.io/pypi/status/rockstar-py" alt="PyPI - Status"></a>
+<a href="https://pepy.tech/project/rockstar-py"><img src="https://pepy.tech/badge/rockstar-py" alt="PyPI - Status"></a>
+<a href="https://pypi.org/project/rockstar-py"><img src="https://img.shields.io/pypi/pyversions/rockstar-py" alt="PyPI - Python Version"></a>
+<a href="https://pypi.org/project/rockstar-py"><img src="https://img.shields.io/pypi/wheel/rockstar-py" alt="PyPI - Wheel"></a>
+<a href="https://github.com/psf/black"><img src="https://img.shields.io/badge/code%20style-black-000000.svg" alt="Code Style - Black"></a>
+<a href="https://github.com/yyyyyyyan/rockstar-py/graphs/contributors"><img src="https://img.shields.io/github/contributors/yyyyyyyan/rockstar-py" alt="GitHub contributors"></a>
+<a href="https://github.com/yyyyyyyan/rockstar-py/stargazers"><img src="https://img.shields.io/github/stars/yyyyyyyan/rockstar-py" alt="GitHub stars"></a>
+<a href="https://github.com/yyyyyyyan/rockstar-py"><img src="https://img.shields.io/github/languages/code-size/yyyyyyyan/rockstar-py" alt="GitHub code size in bytes"></a>
+<a href="https://github.com/yyyyyyyan/rockstar-py/blob/master/LICENSE.txt"><img src="https://img.shields.io/github/license/yyyyyyyan/rockstar-py" alt="License - MIT"></a>
+</p>
 
-    <p align="center">
-    <a href="https://travis-ci.com/yyyyyyyan/rockstar-py"><img src="https://img.shields.io/travis/yyyyyyyan/rockstar-py" alt="Travis (.org)"></a>
-    <a href="https://pypi.org/project/rockstar-py"><img src="https://img.shields.io/pypi/v/rockstar-py" alt="PyPI - Version"></a>
-    <a href="https://pypi.org/project/rockstar-py"><img src="https://img.shields.io/pypi/status/rockstar-py" alt="PyPI - Status"></a>
-    <a href="https://pepy.tech/project/rockstar-py"><img src="https://pepy.tech/badge/rockstar-py" alt="PyPI - Status"></a>
-    <a href="https://pypi.org/project/rockstar-py"><img src="https://img.shields.io/pypi/pyversions/rockstar-py" alt="PyPI - Python Version"></a>
-    <a href="https://pypi.org/project/rockstar-py"><img src="https://img.shields.io/pypi/wheel/rockstar-py" alt="PyPI - Wheel"></a>
-    <a href="https://github.com/psf/black"><img src="https://img.shields.io/badge/code%20style-black-000000.svg" alt="Code Style - Black"></a>
-    <a href="https://github.com/yyyyyyyan/rockstar-py/graphs/contributors"><img src="https://img.shields.io/github/contributors/yyyyyyyan/rockstar-py" alt="GitHub contributors"></a>
-    <a href="https://github.com/yyyyyyyan/rockstar-py/stargazers"><img src="https://img.shields.io/github/stars/yyyyyyyan/rockstar-py" alt="GitHub stars"></a>
-    <a href="https://github.com/yyyyyyyan/rockstar-py"><img src="https://img.shields.io/github/languages/code-size/yyyyyyyan/rockstar-py" alt="GitHub code size in bytes"></a>
-    <a href="https://github.com/yyyyyyyan/rockstar-py/blob/master/LICENSE.txt"><img src="https://img.shields.io/github/license/yyyyyyyan/rockstar-py" alt="License - MIT"></a>
-    </p>
-
-Getting Started
----------------
+## Getting Started
 
 These instructions will get you a copy of the project up and running on
 your local machine for development and testing purposes.
 
-Installing
-~~~~~~~~~~
+### Installing
 
-First, make sure you have installed a supported Python version (>= 3.6).
+First, make sure you have installed a supported Python version (\>=
+3.6).
 
 Now, the easiest way of installing **rockstar-py** is using pip:
 
-::
-
     pip install rockstar-py
 
-(This may require ``sudo`` if you're installing globally on a \*nix system.
+(This may require `sudo` if you're installing globally on a \*nix
+system.
 
-You can also clone this project using git and install the package with setuptools:
-
-::
+You can also clone this project using git and install the package with
+setuptools:
 
     git clone https://github.com/yyyyyyyan/rockstar-py.git
     cd rockstar-py
     python3 setup.py install
 
-Usage
------
+## Usage
 
-If you installed the package using pip or setuptools, you can simply run rockstar-py in the command line:
-
-::
+If you installed the package using pip or setuptools, you can simply run
+rockstar-py in the command line:
 
     rockstar-py [-h] (-i INPUT | --stdin) [-o OUTPUT | --stdout | --exec] [-v]
 
-Otherwise, you can run the transpiler from inside the ``rockstar-py`` folder by calling python with the ``-m`` flag:
-
-::
+Otherwise, you can run the transpiler from inside the `rockstar-py`
+folder by calling python with the `-m` flag:
 
     python3 -W ignore -m rockstarpy [-h] (-i INPUT | --stdin) [-o OUTPUT | --stdout | --exec] [-v]
 
-Call ``rockstar-py`` with the flag ``-h``/``--help`` to see a description of all options:
-
-::
+Call `rockstar-py` with the flag `-h`/`--help` to see a description of
+all options:
 
     usage: rockstar-py [-h] (-i INPUT | --stdin) [-o OUTPUT | --stdout | --exec] [-v]
-
+    
     Python transpiler for the esoteric language Rockstar
-
+    
     optional arguments:
      -h, --help            show this help message and exit
      -i INPUT, --input INPUT
@@ -80,15 +70,13 @@ Call ``rockstar-py`` with the flag ``-h``/``--help`` to see a description of all
      --exec                Execute (without saving) the transpiled code
      -v, --version         Version
 
-Examples
---------
+## Examples
 
-Just to make it more clear, some examples with the `fizz.rock`_ code.
+Just to make it more clear, some examples with the
+[fizz.rock](https://github.com/yyyyyyyan/rockstar-py/blob/master/tests/fizz.rock)
+code.
 
-Basic usage
-~~~~~~~~~~~
-
-::
+### Basic usage
 
     > rockstar-py -i fizz.rock -o fizz.py
     > ls
@@ -115,10 +103,7 @@ Basic usage
            continue
        print(my_world)
 
-Using ``--stdout``
-~~~~~~~~~~~~~~~~~~
-
-::
+### Using `--stdout`
 
     > rockstar-py -i fizz.rock --stdout
     def Midnight(your_heart, your_soul):
@@ -142,19 +127,16 @@ Using ``--stdout``
            continue
        print(my_world)
 
-Using ``--stdin``
-~~~~~~~~~~~~~~~~~
-
-::
+### Using `--stdin`
 
     > rockstar-py --stdin -o fizz.py
     Midnight takes your heart and your soul
     While your heart is as high as your soul (this is a comment)
     Put your heart without your soul into your heart
-
+    
     Give back your heart
-
-
+    
+    
     Desire's a lovestruck ladykiller
     My world is empty
     Fire's ice (i love comments)
@@ -164,24 +146,21 @@ Using ``--stdin``
     If Midnight taking my world, Fire is nothing and Midnight taking my world, Hate is nothing
     Shout "FizzBuzz!"
     Take it to the top
-
+    
     If Midnight taking my world, Fire is nothing
     Shout "Fizz!"
     Take it to the top
-
+    
     If Midnight taking my world, Hate is nothing
     Say "Buzz!"
     Take it to the top
-
+    
     Whisper my world
     [Ctrl+D]
     > ls
     fizz.py  fizz.rock
 
-Using ``--exec``
-~~~~~~~~~~~~~~~~
-
-::
+### Using `--exec`
 
     > rockstar-py -i fizz.rock --exec
     1
@@ -285,40 +264,32 @@ Using ``--exec``
     Fizz!
     Buzz!
 
-Contributing
-------------
+## Contributing
 
-The project has basically reached its end, but I'm still accepting pull requests that improve speed and legibility of the
-code.
+The project has basically reached its end, but I'm still accepting pull
+requests that improve speed and legibility of the code.
 
-Authors
--------
+## Authors
 
--  **yyyyyyyan** - *Initial work* - `yyyyyyyan`_
+  - **yyyyyyyan** - *Initial work* -
+    [yyyyyyyan](https://github.com/yyyyyyyan)
 
-Contributors
-------------
+## Contributors
 
-Huge thanks to everyone who is contribuing to this project. Check them out at `Contributors`_! 
+Huge thanks to everyone who is contribuing to this project. Check them
+out at [Contributors](https://github.com/yyyyyyyan/rockstar-py/graphs/contributors)!
 
-License
--------
+## License
 
-This project is licensed under the MIT License - see the `LICENSE`_ file
-for details.
+This project is licensed under the MIT License - see the
+[LICENSE](https://github.com/yyyyyyyan/rockstar-py/blob/master/LICENSE)
+file for details.
 
-Acknowledgments
----------------
+## Acknowledgments
 
--  Hat tip to `dylanbeattie`_ for creating Rockstar
--  The FizzBuzz example works well. If valid code doesn’t work, create
-   an issue so I can get a look.
--  I’ll work on the readibility and organization of the code, would love
-   suggestions on how/where to do that.
-
-.. _Rockstar: https://github.com/dylanbeattie/rockstar
-.. _fizz.rock: https://github.com/yyyyyyyan/rockstar-py/blob/master/tests/fizz.rock
-.. _yyyyyyyan: https://github.com/yyyyyyyan
-.. _Contributors: https://github.com/yyyyyyyan/rockstar-py/graphs/contributors
-.. _LICENSE: https://github.com/yyyyyyyan/rockstar-py/blob/master/LICENSE
-.. _dylanbeattie: https://github.com/dylanbeattie/
+  - Hat tip to [dylanbeattie](https://github.com/dylanbeattie/) for
+    creating Rockstar
+  - The FizzBuzz example works well. If valid code doesn’t work, create
+    an issue so I can get a look.
+  - I’ll work on the readibility and organization of the code, would
+    love suggestions on how/where to do that.
