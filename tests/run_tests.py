@@ -1,9 +1,10 @@
-import os
+from pathlib import Path
 import sys
 import difflib
 import unittest
 
-sys.path = [os.path.dirname(os.path.dirname(os.path.realpath(__file__)))] + sys.path
+test_path = Path(__file__).resolve().parent
+sys.path.insert(0, test_path.parent)
 from rockstarpy.transpile import Transpiler
 
 
@@ -18,32 +19,28 @@ def check_files_identical(expected, actual):
 
 
 def main():
-    files = os.listdir(".")
-    rock_files = filter(
-        lambda f: f.split(".")[-1] in ["rock", "rockstar", "lyrics"], files
-    )
-    py_files = set(filter(lambda f: f.endswith(".py"), files))
-    for rock_file in rock_files:
-        print("testing", rock_file)
-        file_name = os.path.splitext(rock_file)[0]  # take off extension
-        py_file = file_name + ".py"
-        assert py_file in py_files, (
-            "Did not create a corrosponding expected output for " + rock_file
-        )
+    identical_test_files = [
+        (file, file.with_suffix(".py"))
+        for file in test_path.iterdir()
+        if file.suffix == ".rock"
+    ]
+    for rock_path, py_path in identical_test_files:
+        print("testing", rock_path.name)
+
+        assert py_path.is_file(), f"{py_path} does not exist"
 
         transpiler = Transpiler()
-
         converted_code = ""
-        with open(rock_file, "r") as rockstar_file:
+        with rock_path.open() as rockstar_file:
             for line in rockstar_file:
                 converted_code += transpiler.transpile_line(line)
 
-        with open(file_name + ".py", "r") as expected:
-            expected_code = expected.read()
+        with py_path.open() as expected_file:
+            expected_code = expected_file.read()
 
         check_files_identical(expected_code, converted_code)
 
-    suite = unittest.defaultTestLoader.discover(".", pattern="test_*.py")
+    suite = unittest.defaultTestLoader.discover(test_path, pattern="test_*.py")
     runner = unittest.TextTestRunner()
     runner.run(suite)
 
