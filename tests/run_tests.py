@@ -17,7 +17,7 @@ def check_files_identical(expected, actual):
         print()
         assert False, "There are differences"
 
-
+# TODO: Add test for output of py exec
 def main():
     identical_test_files = [
         (file, file.with_suffix(".py"))
