@@ -60,9 +60,12 @@ class Transpiler(object):
         }
 
     def get_comments(self, line):
-        if "(" in line:
+        comment_match = re.search(r"\(.*\)", line)
+        if comment_match:
             line, comment = line.split("(")
             comment = " # " + comment.strip(")\n ")
+        elif "(" in line or ")" in line:
+            raise SyntaxError("Missing parentheses in comment")
         else:
             comment = ""
         return line, comment

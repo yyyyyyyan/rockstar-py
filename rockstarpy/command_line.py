@@ -35,13 +35,19 @@ args = parser.parse_args()
 # TODO: Use --exec as default; auto-format to black
 
 def command_line():
+    sys.tracebacklimit = 0
     lyrics = args.stdin or open(args.input, "rb")
     output = BytesIO() if args.exec else args.stdout or open(args.output, "wb")
 
     transpiler = Transpiler()
+    line_number = 1
     for line in lyrics:
         line = line.decode("utf8")
-        output.write(transpiler.transpile_line(line).encode("utf8"))
+        try:
+            output.write(transpiler.transpile_line(line).encode("utf8"))
+        except SyntaxError as err:
+            raise SyntaxError(err.msg + f":\n{line_number}.\t{line}")
+        line_number += 1
 
     if args.exec:
         exec(output.getvalue())
