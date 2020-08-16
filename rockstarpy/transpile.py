@@ -73,10 +73,10 @@ class Transpiler(object):
         self._current_indentation = value if value > 0 else 0
 
     def get_comments(self, line):
-        comment_match = re.search(r"\(.*\)", line)
+        comment_match = re.search(r"\((.*)\)", line)
         if comment_match:
-            line, comment = line.split("(")
-            comment = " # " + comment.strip(")\n ")
+            line = line.replace(comment_match.group(), "")
+            comment = " # " + comment_match.group(1)
         elif "(" in line or ")" in line:
             raise SyntaxError("Missing parentheses in comment")
         else:
