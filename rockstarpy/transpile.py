@@ -2,12 +2,17 @@ import re
 
 
 class Transpiler(object):
+    SIMPLE_VARIABLE_FMT = r"[A-Za-z]+"
+    COMMON_VARIABLE_FMT = r"(?:[Aa]n?|[Tt]he|[Mm]y|[Yy]our) [a-z]+"
+    PROPER_VARIABLE_FMT = r"[A-Z][A-Za-z]*(?: [A-Z][A-Za-z]*)*"
+    REGEX_VARIABLES = r"(?:\b{}|{}|{}\b)".format(COMMON_VARIABLE_FMT, PROPER_VARIABLE_FMT, SIMPLE_VARIABLE_FMT)
+    QUOTE_STR_FMT = r"\"[^\"]*\""
+
     def __init__(self):
         self.indentation_style = " " * 4
         self._current_indentation = 0
         self.in_function = False
         self.globals = set()
-        self.regex_variables = r"\b(?:(?:[Aa]n?|[Tt]he|[Mm]y|[Yy]our) [a-z]+|[A-Z][A-Za-z]+(?: [A-Z][A-Za-z]+)*)\b"
         self.most_recently_named = ""
         self.simple_subs = {
             "(": "#",
@@ -80,7 +85,7 @@ class Transpiler(object):
 
     def create_function(self, line):
         match = re.match(
-            r"\b({0}) takes ({0}(?: and {0})*)\b".format(self.regex_variables), line
+            r"\b({0}) takes ({0}(?: and {0})*)\b".format(self.REGEX_VARIABLES), line
         )
         if match:
             self.current_indentation += 1
@@ -107,7 +112,7 @@ class Transpiler(object):
         return line
 
     def replace_let_be_with_is(self, line):
-        match = re.match(r"Let ({0}) be (.+)".format(self.regex_variables), line)
+        match = re.match(r"Let ({0}) be (.+)".format(self.REGEX_VARIABLES), line)
         if match:
             return match.group(1) + " is " + match.group(2)
         return line
@@ -116,7 +121,7 @@ class Transpiler(object):
         poetic_type_literals_keywords = ["True", "False"]
         match = re.match(
             r"\b({0})(?: is|\'s| was| were) ([\d\w\.,\:\!\;\'\-\s]+)".format(
-                self.regex_variables
+                self.REGEX_VARIABLES
             ),
             line,
         )
@@ -151,15 +156,18 @@ class Transpiler(object):
             return match.group(1)
 
     def get_strings(self, line):
-        says_match = re.match(r"({}) says (.*)".format(self.regex_variables), line)
+        strings = dict()
+        says_match = re.match(r"({}) says (.*)".format(self.REGEX_VARIABLES), line)
         if says_match:
-            line = says_match.group(1) + ' = "{}"'
-            return line, says_match.group(2)
-        quotes_match = re.match(r"([^\"]* )(\".*\"(?:, ?\".*\")*)([^\"]*)", line)
-        if quotes_match:
-            line = quotes_match.group(1) + "{}" + quotes_match.group(3)
-            return line, quotes_match.group(2)
-        return line, None
+            line = says_match.group(1) + ' = {str_0}'
+            strings["str_0"] = '"{}"'.format(says_match.group(2).replace('"', r'\"'))
+            return line, strings
+        else:
+            for str_number, string in enumerate(re.findall(self.QUOTE_STR_FMT, line)):
+                fmt_var = f"str_{str_number}"
+                line = re.sub(self.QUOTE_STR_FMT, f"{{str_{str_number}}}", line, 1)
+                strings[fmt_var] = string
+        return line, strings
 
     def transpile_line(self, line):
         if line == "\n":
@@ -169,8 +177,8 @@ class Transpiler(object):
             line_ident = self.indentation_style * self.current_indentation
             self.in_function = False if self.current_indentation == 0 else self.in_function
 
-            line, comments = self.get_comments(line)
             py_line, line_strings = self.get_strings(line)
+            py_line, comments = self.get_comments(py_line)
 
             for key in self.simple_subs:
                 py_line = py_line.strip()
@@ -218,20 +226,20 @@ class Transpiler(object):
             py_line = "else:" if py_line == "Else" else py_line
 
             py_line = re.sub(
-                r"Put (.*) into ({})".format(self.regex_variables),
+                r"Put (.*) into ({})".format(self.REGEX_VARIABLES),
                 r"\g<2> = \g<1>",
                 py_line,
             )
             py_line = re.sub(
-                r"Build ({}) up".format(self.regex_variables), r"\g<1> += 1", py_line
+                r"Build ({}) up".format(self.REGEX_VARIABLES), r"\g<1> += 1", py_line
             )
             py_line = re.sub(
-                r"Knock ({}) down(\, down)*".format(self.regex_variables),
+                r"Knock ({}) down(\, down)*".format(self.REGEX_VARIABLES),
                 r"\g<1> -= " + str(1 + py_line.count(", down")),
                 py_line,
             )
             py_line = re.sub(
-                r"Listen to ({})".format(self.regex_variables),
+                r"Listen to ({})".format(self.REGEX_VARIABLES),
                 r"\g<1> = input()",
                 py_line,
             )
@@ -243,7 +251,7 @@ class Transpiler(object):
 
             py_line = re.sub(
                 r"({0}) taking ((?:{0}|\"[^\"]*\"|[0-9]+)(?:, ?(?:{0}|\"[^\"]*\"|[0-9]+))*)".format(
-                    self.regex_variables
+                    self.REGEX_VARIABLES
                 ),
                 r"\g<1>(\g<2>)",
                 py_line,
@@ -260,6 +268,6 @@ class Transpiler(object):
                 elif line_named in self.globals:
                     py_line = f"global {line_named}\n" + line_ident + py_line
 
-            py_line = py_line.format(line_strings) if line_strings else py_line
+            py_line = py_line.format(**line_strings)
 
             return line_ident + py_line + comments + "\n"
