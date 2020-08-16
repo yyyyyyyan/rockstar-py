@@ -4,7 +4,7 @@ import re
 class Transpiler(object):
     def __init__(self):
         self.indentation_style = " " * 4
-        self.current_indentation = 0
+        self._current_indentation = 0
         self.in_function = False
         self.globals = set()
         self.regex_variables = r"\b(?:(?:[Aa]n?|[Tt]he|[Mm]y|[Yy]our) [a-z]+|[A-Z][A-Za-z]+(?: [A-Z][A-Za-z]+)*)\b"
@@ -58,6 +58,14 @@ class Transpiler(object):
             "Until ": "while not ",
             "While ": "while ",
         }
+
+    @property
+    def current_indentation(self):
+        return self._current_indentation
+
+    @current_indentation.setter
+    def current_indentation(self, value):
+        self._current_indentation = value if value > 0 else 0
 
     def get_comments(self, line):
         comment_match = re.search(r"\(.*\)", line)
@@ -155,7 +163,7 @@ class Transpiler(object):
 
     def transpile_line(self, line):
         if line == "\n":
-            self.current_indentation = self.current_indentation - 1 if self.current_indentation > 0 else 0
+            self.current_indentation -= 1
             return ""
         else:
             line_ident = self.indentation_style * self.current_indentation
