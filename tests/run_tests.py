@@ -4,7 +4,7 @@ import difflib
 import unittest
 
 test_path = Path(__file__).resolve().parent
-sys.path.insert(0, test_path.parent)
+sys.path.insert(0, str(test_path.parent))
 from rockstarpy.transpile import Transpiler
 
 
