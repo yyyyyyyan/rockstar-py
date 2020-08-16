@@ -48,18 +48,15 @@ setuptools:
 
 ## Usage
 
-If you installed the package using pip or setuptools, you can simply run
-rockstar-py in the command line:
+If you installed the package using pip or setuptools, you can simply run rockstar-py in the command line:
 
     rockstar-py [-h] (-i INPUT | --stdin) [-o OUTPUT | --stdout | --exec] [-v]
 
-Otherwise, you can run the transpiler from inside the `rockstar-py`
-folder by calling python with the `-m` flag:
+Otherwise, you can run the transpiler from inside the `rockstar-py` folder by running Python with the `rockstarpy` package:
 
-    python3 -W ignore -m rockstarpy [-h] (-i INPUT | --stdin) [-o OUTPUT | --stdout | --exec] [-v]
+    python3 rockstarpy [-h] (-i INPUT | --stdin) [-o OUTPUT | --stdout | --exec] [-v]
 
-Call `rockstar-py` with the flag `-h`/`--help` to see a description of
-all options:
+Call `rockstar-py` with the flag `-h`/`--help` to see a description of all options:
 
     usage: rockstar-py [-h] (-i INPUT | --stdin) [-o OUTPUT | --stdout | --exec] [-v]
     
@@ -295,3 +292,4 @@ file for details.
 -   Hat tip to [dylanbeattie](https://github.com/dylanbeattie/) for creating Rockstar
 -   The FizzBuzz example works well. If valid code doesn’t work, create an issue so I can get a look.
 -   I’ll work on the readibility and organization of the code, would love suggestions on how/where to do that.
+-   I'd also love help with the tests.
