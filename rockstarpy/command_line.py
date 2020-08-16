@@ -32,7 +32,6 @@ parser.add_argument(
 )
 
 args = parser.parse_args()
-# TODO: Use --exec as default; auto-format to black
 
 def command_line():
     sys.tracebacklimit = 0
