@@ -2,10 +2,10 @@ import re
 
 
 class Transpiler(object):
-    SIMPLE_VARIABLE_FMT = r"[A-Za-z]+"
-    COMMON_VARIABLE_FMT = r"(?:[Aa]n?|[Tt]he|[Mm]y|[Yy]our) [a-z]+"
-    PROPER_VARIABLE_FMT = r"[A-Z][A-Za-z]*(?: [A-Z][A-Za-z]*)*"
-    REGEX_VARIABLES = r"(?:\b{}|{}|{}\b)".format(COMMON_VARIABLE_FMT, PROPER_VARIABLE_FMT, SIMPLE_VARIABLE_FMT)
+    SIMPLE_VARIABLE_FMT = r"\b[A-Za-z]+\b"
+    COMMON_VARIABLE_FMT = r"\b(?:[Aa]n?|[Tt]he|[Mm]y|[Yy]our) [a-z]+\b"
+    PROPER_VARIABLE_FMT = r"\b[A-Z][A-Za-z]*(?: [A-Z][A-Za-z]*)*\b"
+    REGEX_VARIABLES = r"(?:{}|{}|{})".format(COMMON_VARIABLE_FMT, PROPER_VARIABLE_FMT, SIMPLE_VARIABLE_FMT)
     QUOTE_STR_FMT = r"\"[^\"]*\""
 
     def __init__(self):
@@ -136,19 +136,18 @@ class Transpiler(object):
                     line += str(len(alpha_word) % 10) + period
         return line
 
-    def find_proper_variables(self, line):
-        match_list = re.findall(r"\b[A-Z][A-Za-z]+(?: [A-Z][A-Za-z]+)*\b", line)
-        if match_list:
-            for match in match_list:
-                line = line.replace(match, match.replace(" ", "_"))
+    def find_variables(self, line, fmt, clean_func=str):
+        variables = set(re.findall(fmt, line))
+        if variables:
+            for variable in variables:
+                line = re.sub(r"\b{}\b".format(variable), clean_func(variable).replace(" ", "_"), line)
         return line
 
+    def find_proper_variables(self, line):
+        return self.find_variables(line, self.PROPER_VARIABLE_FMT, lambda variable: variable.title())
+
     def find_common_variables(self, line):
-        match_list = re.findall(r"\b([Aa]n?|[Tt]he|[Mm]y|[Yy]our) ([a-z]+)\b", line)
-        if match_list:
-            for match in match_list:
-                line = line.replace(" ".join(match), "{}_{}".format(*match).lower())
-        return line
+        return self.find_variables(line, self.COMMON_VARIABLE_FMT, lambda variable: variable.lower())
 
     def find_named(self, line):
         match = re.match(r"([A-Za-z]+(?:_[A-Za-z]+)*) [+-]?= .+", line)

@@ -94,7 +94,7 @@ class TestAssignment(unittest.TestCase):
     def test_put_into_numeric(self):
         transpiler = Transpiler()
         py_line = transpiler.transpile_line("Put 3.14 into PI\n")
-        self.assertEqual(py_line, "PI = 3.14\n")
+        self.assertEqual(py_line, "Pi = 3.14\n")
 
     def test_put_into_string(self):
         transpiler = Transpiler()
