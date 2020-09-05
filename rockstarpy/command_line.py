@@ -28,7 +28,7 @@ output_group.add_argument(
 )
 
 parser.add_argument(
-    "-v", "--version", action="version", help="Version", version="2.0.0"
+    "-v", "--version", action="version", help="Version", version="2.1.0"
 )
 
 args = parser.parse_args()

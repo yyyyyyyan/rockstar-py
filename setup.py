@@ -5,7 +5,7 @@ with open("README.md") as file:
 
 setup(
     name="rockstar-py",
-    version="2.0.0",
+    version="2.1.0",
     author="yyyyyyyan",
     author_email="contact@yyyyyyyan.tech",
     packages=["rockstarpy"],
@@ -13,7 +13,7 @@ setup(
     long_description=long_description,
     long_description_content_type="text/markdown",
     url="https://github.com/yyyyyyyan/rockstar-py",
-    download_url="https://github.com/yyyyyyyan/rockstar-py/archive/2.0.0.zip",
+    download_url="https://github.com/yyyyyyyan/rockstar-py/archive/2.1.0.zip",
     license="MIT",
     keywords="esoteric rockstar transpiler",
     classifiers=[
