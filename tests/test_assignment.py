@@ -12,6 +12,11 @@ class TestAssignment(unittest.TestCase):
         py_line = transpiler.transpile_line("Life is ok\n")
         self.assertEqual(py_line, "Life = True\n")
 
+    def test_is_silent(self):
+        transpiler = Transpiler()
+        py_line = transpiler.transpile_line("My music is silent\n")
+        self.assertEqual(py_line, 'my_music = ""\n')
+
     def test_is_poetic(self):
         transpiler = Transpiler()
         py_line = transpiler.transpile_line("My life is a mess\n")

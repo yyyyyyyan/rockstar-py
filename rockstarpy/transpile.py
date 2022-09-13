@@ -60,6 +60,10 @@ class Transpiler(object):
             " is as weak as ": " <= ",
             " is not ": " != ",
             " aint ": " != ",
+            " isnt ": " != ",
+            "empty": '""',
+            "silence": '""',
+            "silent": '""',
             "Until ": "while not ",
             "While ": "while ",
         }
@@ -120,7 +124,7 @@ class Transpiler(object):
     def find_poetic_number_literal(self, line):
         poetic_type_literals_keywords = ["True", "False"]
         match = re.match(
-            r"\b({0})(?: is|\'s| was| were) ([\d\w\.,\:\!\;\'\-\s]+)".format(
+            r"\b({0})(?: is|\'s| was| were| are) ([\d\w\.,\:\!\;\'\-\s]+)".format(
                 self.REGEX_VARIABLES
             ),
             line,
@@ -153,6 +157,24 @@ class Transpiler(object):
         match = re.match(r"([A-Za-z]+(?:_[A-Za-z]+)*) [+-]?= .+", line)
         if match:
             return match.group(1)
+
+    def find_cast(self, line):
+        match = re.match(r"(?:Cast|Burn) (.*) into (.*)", line)
+        if match:
+            line = match.group(2) + " = chr(" + match.group(1) + ")"
+        return line
+
+    def find_split(self, line):
+        match = re.match(r"(?:Cut|Split|Shatter) (.*) into (.*)", line)
+        if match:
+            line = match.group(2) + " = list(" + match.group(1) + ")"
+        return line
+
+    def find_pop(self, line):
+        match = re.match(r"Roll (.*) into (.*)", line)
+        if match:
+            line = match.group(2) + " = " + match.group(1) + ".pop(0)"
+        return line
 
     def get_strings(self, line):
         strings = dict()
@@ -258,6 +280,10 @@ class Transpiler(object):
 
             py_line = self.find_proper_variables(py_line)
             py_line = self.find_common_variables(py_line)
+
+            py_line = self.find_split(py_line)
+            py_line = self.find_cast(py_line)
+            py_line = self.find_pop(py_line)
 
             line_named = self.find_named(py_line)
             if line_named:
