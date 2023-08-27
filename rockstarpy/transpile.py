@@ -5,7 +5,8 @@ class Transpiler(object):
     SIMPLE_VARIABLE_FMT = r"\b[A-Za-z]+\b"
     COMMON_VARIABLE_FMT = r"\b(?:[Aa]n?|[Tt]he|[Mm]y|[Yy]our) [a-z]+\b"
     PROPER_VARIABLE_FMT = r"\b[A-Z][A-Za-z]*(?: [A-Z][A-Za-z]*)*\b"
-    REGEX_VARIABLES = r"(?:{}|{}|{})".format(COMMON_VARIABLE_FMT, PROPER_VARIABLE_FMT, SIMPLE_VARIABLE_FMT)
+    ARRAY_VARIABLE =  r"\d+"
+    REGEX_VARIABLES = r"(?:{}|{}|{})".format(COMMON_VARIABLE_FMT, PROPER_VARIABLE_FMT, SIMPLE_VARIABLE_FMT, ARRAY_VARIABLE)
     QUOTE_STR_FMT = r"\"[^\"]*\""
 
     def __init__(self):
@@ -229,6 +230,13 @@ class Transpiler(object):
                 r"\g<2> = \g<1>",
                 py_line,
             )
+            #Array Indexing
+            py_line = re.sub(
+                r"(.+) at ({})".format(self.REGEX_VARIABLES),
+                r"\g<1>[\g<2>]",
+                py_line,    
+            )
+            
             py_line = re.sub(
                 r"Build ({}) up".format(self.REGEX_VARIABLES), r"\g<1> += 1", py_line
             )
